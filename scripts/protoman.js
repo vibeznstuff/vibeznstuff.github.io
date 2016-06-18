@@ -1,4 +1,3 @@
-/* PROTOMAN class is used to create all features and AI behavior for Protoman opponent */
 function Protoman(){
     var speed = 6;
     var moving = false;
@@ -7,14 +6,10 @@ function Protoman(){
     this.character = new Character("images/protoman/neutral-1-left.gif",speed);
     this.character.friction = .1;
     
-    /* Protoman specific actions
-        Blast: Shoots mini plasma balls with his gun
-        Defend: Uses his shield to deflect oncoming attacks
-    */
+    //Protoman-specific actions
     this.character.blast1 = false;
     this.character.defend = false;
     
-    /* Set Plasmaball (Protoman projectile) settings */
     var plasma_img = document.createElement("IMG");
     var plasma_speed = 800;
     var plasmaball = new Projectile(0,0,plasma_speed, plasma_img, false);
@@ -22,7 +17,6 @@ function Protoman(){
         return plasmaball;
     };
     
-    /* AI "random walk" for protoman opponent */
     this.character.move = function(){
         var rand = 0;
         if(duration < 1){

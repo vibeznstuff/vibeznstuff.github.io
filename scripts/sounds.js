@@ -1,35 +1,37 @@
-/* Create Playlist Array */
-var playlist = [];
+var sounds = [];
+sounds[0] = new Audio("sounds/bonita.mp3");
+sounds[1] = new Audio("sounds/cissy.mp3");
+sounds[2] = new Audio("sounds/proceed.mp3");
+sounds[3] = new Audio("sounds/heartbeats.mp3");
+sounds[4] = new Audio("sounds/cooler.MP3");
+sounds[5] = new Audio("sounds/lovetrain.mp3");
 
-/* Add songs to playlist */
-playlist[0] = new Audio("songs/bonita.mp3");
-playlist[1] = new Audio("songs/cissy.mp3");
-playlist[2] = new Audio("songs/proceed.mp3");
-playlist[3] = new Audio("songs/heartbeats.mp3");
-playlist[4] = new Audio("songs/cooler.MP3");
-playlist[5] = new Audio("songs/lovetrain.mp3");
+var i = Math.round(Math.random()*(sounds.length-1));
+/*
+sounds[i].addEventListener('ended', function() {
+    console.log("Hey I'm looping");
+    i = Math.round(Math.random()*(sounds.length-1));
+    sounds[i].currentTime = 0;
+    sounds[i].play();
+}, false);
 
-/* Randomize song to be played */
-var i = Math.round(Math.random()*(playlist.length-1));
+sounds[i].play(); */
 
-/* Lowers volume of music */
 function lowerVolume(){
-    if(playlist[i].volume > 0){
-        playlist[i].volume -= .2;
+    if(sounds[i].volume > 0){
+        sounds[i].volume -= .2;
     };
 }
 
-/* Raises volume of music */
 function raiseVolume(){
-    if(playlist[i].volume < 1){
-        playlist[i].volume += .2;
+    if(sounds[i].volume < 1){
+        sounds[i].volume += .2;
     };
 }
 
-/* Skips to next track in playlist */
 function skipSong(){
-    playlist[i].pause();
-    playlist[i].currentTime = 0;
-    i = Math.round(Math.random()*(playlist.length-1));
-    playlist[i].play();
+    sounds[i].pause();
+    sounds[i].currentTime = 0;
+    i = Math.round(Math.random()*(sounds.length-1));
+    sounds[i].play();
 }

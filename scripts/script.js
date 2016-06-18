@@ -1,46 +1,41 @@
-/*
-   This is the main script but I don't remember what it does.
-   Drinking a beer right now
-*/
 
-/* Define global variables */
+//var img_width = 43;
+//var img_height = 58;
 var combo = 1;
-var punching = false; /* Is blossom currently punching? */
-var kicking = false; /* Is blossom currently kicking? */
+var punching = false;
+var kicking = false;
+
+function setdim(width,height){
+    img_width=width;
+    img_height=height;
+}
+
+var img = document.createElement("IMG");
+img.setAttribute("src","images/blossom/neutral-right.gif");
 var flying = false;
 var moving = false;
 var right = true;
 var left = false;
 var attacking = false;
 var dist = 0;
-var fireball_speed = 500;
-var laser_speed = 1000;
 
-/* Set dimensions of the game screen */
-function setdim(width,height){
-    img_width=width;
-    img_height=height;
-}
-
-/* Load Stage image */
-var stage = document.createElement("IMG");
-stage.setAttribute("src","images/stages/testStage.png");
-
-/* Load Sprite Images */
-var img = document.createElement("IMG");
-img.setAttribute("src","images/blossom/neutral-right.gif");
 var fire_img = document.createElement("IMG");
 var fire_right = "images/blossom/fireball-1-right.gif";
 var fire_left = "images/blossom/fireball-1-left.gif";
+var fireball_speed = 500;
+var fireball = new Projectile(0,0,fireball_speed,fire_img, false, fire_right, fire_left);
+
 var laser_img = document.createElement("IMG");
 var laser_src = "images/blossom/laser.gif";
-
-/* Create projectiles from PROJECTILE class */
-var fireball = new Projectile(0,0,fireball_speed,fire_img, false, fire_right, fire_left);
+var laser_speed = 1000;
 var laser = new Projectile(0,0,laser_speed,laser_img, false,laser_src,laser_src);
 
+/*var projectile_time = 54;
+var proj_dist=0;*/
 
-/* Handles sprite animation while Bubbles is running towards right direction */
+var stage = document.createElement("IMG");
+stage.setAttribute("src","images/stages/testStage.png");
+
 function setRightRun(){
     //setdim(43,58);
     if(left){
@@ -65,8 +60,8 @@ function setRightRun(){
         };
 };
 
-/* Handles sprite animation while Bubbles is running towards left direction */
 function setLeftRun(){
+    //setdim(43,58);
     if(right){
             img.setAttribute("src","images/blossom/neutral-left.gif");
             dist=0;
@@ -89,10 +84,6 @@ function setLeftRun(){
         };
 };
 
-/*
- * Handles sprite animation while Bubbles is about to start flying
- * towards right direction.
-*/
 function setRightTakeOff(){
     //setdim(43,58);
     if(left){
@@ -115,10 +106,6 @@ function setRightTakeOff(){
         };
 };
 
-/*
- * Handles sprite animation while Bubbles is about to start flying
- * towards left direction.
-*/
 function setLeftTakeOff(){
     //setdim(43,58);
     if(right){
@@ -141,24 +128,24 @@ function setLeftTakeOff(){
         };
 };
 
-/*
- * Handles sprite animation for when Bubbles is about to launch
- * a projectile
-*/
 function setProjectile(projectile){
     attacking=true;
     if(right){
         dist+=1;
         if(dist===1){
             img.setAttribute("src","images/blossom/attack-1-right.gif");
+            //setdim(45,56);
         } else if (dist===2){
             img.setAttribute("src","images/blossom/attack-2-right.gif");
+            //setdim(36,59);
         } else if (dist===3){
             img.setAttribute("src","images/blossom/attack-3-right.gif");
+            //setdim(56,59);
         } else if (dist===4){
             img.setAttribute("src","images/blossom/attack-4-right.gif");
         } else if (dist===5){
             img.setAttribute("src","images/blossom/attack-5-right.gif");
+            //setdim(53,60);
         } else if (dist===6){
             player.vx -= 60;
             projectile.exists =true;
@@ -192,20 +179,13 @@ function setProjectile(projectile){
     }
 };
 
-/* Logs keys which have been pressed by user */
 var keys = []; // Or you could call it "key"
 
-/*
- * Handler for key press event
- * onkeydown: Key is pressed
- * onkeyup: Key is released
-*/
 onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
     keys[e.keyCode] = e.type == 'keydown';
-    
-    /* Left and Up Key pressed */
-    if(keys[37] && keys[38] && !attacking){
+    /*insert conditional here*/
+    if(keys[37] && keys[38] && !attacking){ // left and up
         player.vx += -20;
         player.vy += -20;
         player.ax += -5;
@@ -217,17 +197,13 @@ onkeydown = onkeyup = function(e){
         };
         
         moving = true;
-        
-    /* Left and Down Key pressed */
-    } else if (keys[37] && keys[40] && !attacking){
+    } else if (keys[37] && keys[40] && !attacking){ // left and down
         player.vx += -20;
         player.vy += 20
         img.setAttribute("src","images/blossom/neutral-left.gif");
         //setdim(43,58);
         moving = true;
-    
-    /* Right and Up Key Pressed */
-    } else if (keys[39] && keys[38] && !attacking){
+    } else if (keys[39] && keys[38] && !attacking){ // right and up
         player.vx += 20;
         player.vy += -20;
         player.ax += 5;
@@ -238,17 +214,13 @@ onkeydown = onkeyup = function(e){
             //setdim(75,35);
         };
         moving = true;
-        
-    /* Right and Down Key pressed */
-    } else if (keys[39] && keys[40] && !attacking){
+    } else if (keys[39] && keys[40] && !attacking){ // right and down
         player.vx += 20;
         player.vy += 20;
         img.setAttribute("src","images/blossom/neutral-right.gif");
         //setdim(43,58);
         moving = true;
-        
-    /* Left Key Pressed */
-    } else if (keys[37] && !attacking){
+    } else if (keys[37] && !attacking){ // left
         player.vx += -20;
         if(!flying){
             setLeftRun();
@@ -259,9 +231,8 @@ onkeydown = onkeyup = function(e){
             //setdim(46,75);
         }
         moving = true;
-        
-    /* Up Key Pressed */
-    } else if (keys[38] && !attacking){
+    } else if (keys[38] && !attacking){ // up
+        player.vy += -20;
         if(right){
             img.setAttribute("src","images/blossom/fly-neutral-right.gif");
             //setdim(46,75);
@@ -270,9 +241,7 @@ onkeydown = onkeyup = function(e){
             //setdim(46,75);
         };
         moving = true;
-        
-    /* Right Key Pressed */
-    } else if (keys[39] && !attacking){
+    } else if (keys[39] && !attacking){ // right
         player.vx += 20;
         if(!flying){
             setRightRun();
@@ -283,14 +252,11 @@ onkeydown = onkeyup = function(e){
             //setdim(46,75);
         }
         moving = true;
-        
-    /* Down Key Pressed */
-    } else if (keys[40]){
+    } else if (keys[40]){ // down
         player.vy += 20
         moving=false;
         if(!flying){
-            /* When not in air and laser attack is initiated */
-            if (keys[87]) {
+            if (keys[87]) { // Crouching laser beam
                 if(!attacking){
                     attacking = true;
                     combo=1;
@@ -328,17 +294,13 @@ onkeydown = onkeyup = function(e){
         } else {
             moving = true;
         };
-        
-    /* When Plasma Ball projectile is initiated */
-    } else if (keys[68]){
+    } else if (keys[68]){ //Plasma ball
         //laser.exists = false;
         if(!attacking){
             dist=0;
         };
         setProjectile(fireball);
-        
-    /* When Punch Attack is initiated */
-    } else if (keys[65]){
+    } else if (keys[65]){ // punch attack
         if(kicking){
             punching = true;
             kicking = false;
@@ -413,9 +375,7 @@ onkeydown = onkeyup = function(e){
                 combo=1;
             }
         };
-        
-    /* When Kick Attack is initiated */
-    } else if(keys[83]) {
+    } else if(keys[83]) { // kick attack
         if(punching){
             kicking = true;
             punching = false;
@@ -469,9 +429,8 @@ onkeydown = onkeyup = function(e){
                 //setdim(85,52);
             }
         }
-    
-    /* Laser Beam projectile is initiated */
-    } else if (keys[87]){
+        
+    } else if (keys[87]){ // Laser beam
         if(!attacking){
             attacking = true;
             combo=1;
@@ -533,13 +492,12 @@ onkeydown = onkeyup = function(e){
     };  
 };
 
-
-/* Build the Game Setting */
-
 // Get the canvas element
 var canvas = document.getElementById( "canvas" );
 // Get our 2D context for drawing
 var ctx = canvas.getContext( "2d" );
+
+
 // Frames-per-second
 var FPS = 150;
 
@@ -611,7 +569,7 @@ var player = {
     }
 };
 
-/* Draws the elements of the game */
+// Game loop draw function
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(stage,0,0,canvas.width,canvas.height);
@@ -629,7 +587,7 @@ function draw() {
     protoman.draw();
 };
 
-/* Updates the positions and statuses of all game entities */
+// Game loop update function
 function update() {
     player.update();
     if(fireball.exists){
@@ -646,7 +604,6 @@ function update() {
     health.update();
 }
 
-/* Progresses the game using the draw and update function */
 function tick() {
     if(player.health > 0 && protoman.character.health > 0){
         draw();
@@ -660,5 +617,4 @@ function tick() {
     }
 }
 
-/* Begins the game, animating all actions */
 setInterval( tick, 1000 / FPS );
