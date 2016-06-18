@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bubbles Fly Simulator</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas" width="800" height="600">
+	</canvas>
+	<script type="text/javascript" src="scripts/projectile.js"></script>
+        <script type="text/javascript" src="scripts/script.js"></script>
+	<script type="text/javascript" src="scripts/character.js"></script>
+	<script type="text/javascript" src="scripts/sounds.js"></script>
+	<script type="text/javascript" src="scripts/protoman.js"></script>
+	<script type="text/javascript" src="scripts/health.js"></script>
+	<div id="instructions">
+	<h3> Instructions </h3>
+	    <ul>
+		<li> Move with directional keys (up, down, left, right)</li>
+		<li> Hold a for punch attack </li>
+		<li> Hold s for kick attack </li>
+		<li> Hold d for plasma ball attack </li>
+		<li> Hold w for laser vision attack </li>
+	    </ul>
+	    <button onclick="lowerVolume()">Lower Volume</button>
+	    <button onclick="raiseVolume()">Raise Volume</button>
+	    <button onclick="skipSong()">Skip Song</button>
+	</div>
+    </body>
+</html>
